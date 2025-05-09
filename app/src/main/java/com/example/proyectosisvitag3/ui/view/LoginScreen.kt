@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 import com.example.proyectosisvitag3.R
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
@@ -155,4 +157,52 @@ fun HeaderImage(modifier: Modifier) {
         contentDescription = "Header",
         modifier = modifier
     )
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun LoginScreenPreview() {
+    val navController = rememberNavController()
+
+    // Fake ViewModel solo para Preview
+    val viewModel = object {
+        val email = MutableLiveData("usuario@ejemplo.com")
+        val password = MutableLiveData("123456")
+        val loginEnable = MutableLiveData(true)
+        val isLoading = MutableLiveData(false)
+    }
+
+    // Simulamos el ViewModel usando lambdas y observeAsState manual
+    val email by viewModel.email.observeAsState("")
+    val password by viewModel.password.observeAsState("")
+    val loginEnable by viewModel.loginEnable.observeAsState(false)
+    val isLoading by viewModel.isLoading.observeAsState(false)
+
+    // Redibujamos la vista manualmente
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = Color.White
+    ) {
+        Box(
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            Column(modifier = Modifier.align(Alignment.Center)) {
+                HeaderImage(
+                    Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .size(200.dp)
+                )
+                Spacer(modifier = Modifier.padding(16.dp))
+                EmailField(email) {}
+                Spacer(modifier = Modifier.padding(4.dp))
+                PasswordField(password) {}
+                Spacer(modifier = Modifier.padding(8.dp))
+                ForgotPassword(Modifier.align(Alignment.End))
+                Spacer(modifier = Modifier.padding(16.dp))
+                LoginButton(loginEnable) {}
+            }
+        }
+    }
 }
