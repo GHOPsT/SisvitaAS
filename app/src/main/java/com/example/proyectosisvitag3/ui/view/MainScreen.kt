@@ -15,6 +15,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectosisvitag3.R
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun MainScreen(navController: NavHostController) {
@@ -85,4 +87,11 @@ fun ProfesionalImage(modifier: Modifier) {
         contentDescription = "Header",
         modifier = modifier
     )
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun MainScreenPreview() {
+    val navController = rememberNavController()
+    MainScreen(navController = navController)
 }
