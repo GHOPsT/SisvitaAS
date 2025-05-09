@@ -17,6 +17,12 @@ import androidx.navigation.compose.rememberNavController
 import com.example.proyectosisvitag3.R
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.text.font.Font
+
+
+val luckiestGuy = FontFamily(
+    Font(R.font.luckiest_guy)
+)
 
 @Composable
 fun MainScreen(navController: NavHostController) {
@@ -29,34 +35,32 @@ fun MainScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.logo_sisvita),
+                contentDescription = "Logo Sisvita",
+                modifier = Modifier
+                    .size(240.dp)
+                    .padding(bottom = 16.dp)
+            )
+
             Text(
                 text = "Bienvenido",
-                style = TextStyle(fontSize = 45.sp, color = Color.Black, fontFamily = FontFamily.Cursive)
+                style = TextStyle(fontSize = 45.sp, color = Color.Black,  fontFamily = luckiestGuy)
             )
             Spacer(modifier = Modifier.height(30.dp))
             Column {
-                AlumnoImage(
-                    Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .size(200.dp)
-                )
                 Button(
-                    onClick = { navController.navigate("loginScreen") },
+                    onClick = { navController.navigate("loginScreen") }, //Aquí debería ir la pantalla para login de estudiante
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 80.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3E03))
                 ) {
-                    Text(text = "Iniciar como Alumno")
+                    Text(text = "ESTUDIANTE")
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
             Column {
-                ProfesionalImage(
-                    Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .size(200.dp)
-                )
                 Button(
                     onClick = { navController.navigate("loginScreen") }, // Aquí debería ir la navegación a la pantalla de login para profesionales
                     modifier = Modifier
@@ -64,7 +68,19 @@ fun MainScreen(navController: NavHostController) {
                         .padding(horizontal = 80.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4303))
                 ) {
-                    Text(text = "Iniciar como Profesional")
+                    Text(text = "ESPECIALISTA")
+                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Column {
+                Button(
+                    onClick = { navController.navigate("loginScreen") }, // Aquí debería ir a donde sea que te mande ese botón xd
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 80.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4303))
+                ) {
+                    Text(text = "ASISTENTE VIRTUAL")
                 }
             }
         }

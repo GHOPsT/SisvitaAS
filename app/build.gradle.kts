@@ -70,6 +70,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.compose.ui:ui:1.5.1") // o la versión que estés usando
+    implementation("androidx.compose.ui:ui-text:1.5.1")
 
     implementation("org.postgresql:postgresql:42.2.9")
 

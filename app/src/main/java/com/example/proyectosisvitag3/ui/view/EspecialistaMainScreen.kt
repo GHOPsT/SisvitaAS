@@ -22,4 +22,3 @@ fun EspecialistaMainScreen() {
         Text(text = "Pantalla principal del Especialista")
     }
 }
-
