@@ -30,7 +30,7 @@ import androidx.lifecycle.MutableLiveData
 fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.White
+        color = Color(0xFFEFFFFF)
     ) {
         Box(
             Modifier

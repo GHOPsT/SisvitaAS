@@ -17,7 +17,7 @@ import androidx.navigation.compose.rememberNavController
 fun StudentMainScreen(navController: NavHostController) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.White
+        color = Color(0xFFEFFFFF)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

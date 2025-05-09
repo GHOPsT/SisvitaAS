@@ -15,7 +15,7 @@ fun EspecialistaMainScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(Color(0xFFEFFFFF))
             .padding(16.dp),
         contentAlignment = androidx.compose.ui.Alignment.Center
     ) {

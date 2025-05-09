@@ -30,7 +30,7 @@ import androidx.compose.runtime.Composable
 fun EvaluarResultadoScreen(navController: NavHostController, viewModel: EvaluarResultadoViewModel){
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.White
+        color = Color(0xFFEFFFFF)
     ) {
         Box(
             Modifier
