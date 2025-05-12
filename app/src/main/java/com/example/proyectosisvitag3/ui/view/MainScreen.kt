@@ -18,6 +18,8 @@ import com.example.proyectosisvitag3.R
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.ui.text.font.Font
+import androidx.compose.foundation.border
+import androidx.compose.foundation.shape.RoundedCornerShape
 
 
 val luckiestGuy = FontFamily(
@@ -54,7 +56,7 @@ fun MainScreen(navController: NavHostController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 80.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF3E03))
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF27C8C8))
                 ) {
                     Text(text = "ESTUDIANTE")
                 }
@@ -66,7 +68,7 @@ fun MainScreen(navController: NavHostController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 80.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4303))
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF27C8C8))
                 ) {
                     Text(text = "ESPECIALISTA")
                 }
@@ -78,7 +80,7 @@ fun MainScreen(navController: NavHostController) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 80.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4303))
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF27C8C8))
                 ) {
                     Text(text = "ASISTENTE VIRTUAL")
                 }
