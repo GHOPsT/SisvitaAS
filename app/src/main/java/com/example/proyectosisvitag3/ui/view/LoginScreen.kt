@@ -73,7 +73,12 @@ fun Login(modifier: Modifier, viewModel: LoginViewModel, navController: NavHostC
                     viewModel.onLoginSelected()
                 }
             }
+            Spacer(modifier = Modifier.height(12.dp))
+            RegisterButton {
+                navController.navigate("registerScreen")
+            }
         }
+
     }
 }
 
@@ -85,8 +90,8 @@ fun LoginButton(loginEnable: Boolean, onLoginSelected: () -> Unit) {
             .fillMaxWidth()
             .height(48.dp),
         colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFFFF4303),
-            disabledContainerColor = Color(0xFFF78058),
+            containerColor = Color(0xFF27C8C8),
+            disabledContainerColor = Color(0xFF27C8C8),
             contentColor = Color.White,
             disabledContentColor = Color.White
         ), enabled = loginEnable
@@ -103,7 +108,7 @@ fun ForgotPassword(modifier: Modifier) {
         modifier = modifier.clickable { },
         fontSize = 12.sp,
         fontWeight = FontWeight.Bold,
-        color = Color(0xFFFB9600)
+        color = Color(0xFF27C8C8)
     )
 }
 
@@ -159,6 +164,24 @@ fun HeaderImage(modifier: Modifier) {
     )
 }
 
+@Composable
+fun RegisterButton(onRegisterSelected: () -> Unit) {
+    Button(
+        onClick = { onRegisterSelected() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color(0xFF27C8C8),
+            disabledContainerColor = Color(0xFF27C8C8),
+            contentColor = Color.White,
+            disabledContentColor = Color.White
+        )
+    ) {
+        Text(text = "Registrarse")
+    }
+}
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun LoginScreenPreview() {
@@ -181,7 +204,7 @@ fun LoginScreenPreview() {
     // Redibujamos la vista manualmente
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color.White
+        color = Color(0xFFEFFFFF)
     ) {
         Box(
             Modifier
