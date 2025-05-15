@@ -34,7 +34,7 @@ class LoginViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _loginSuccess = MutableLiveData<Boolean>()
+    private val _loginSuccess = MutableLiveData<Boolean>(false)
     val loginSuccess: LiveData<Boolean> = _loginSuccess
 
     private val _showDialog = MutableLiveData<Boolean>()
@@ -73,14 +73,17 @@ class LoginViewModel : ViewModel() {
                         _loginSuccess.postValue(true)
                     } else {
                         _isError.postValue(true)
+                        _loginSuccess.postValue(false)
                     }
                 } else {
                     _isError.postValue(true)
+                    _loginSuccess.postValue(false)
                 }
                 _isLoading.postValue(false)
             } catch (e: Exception) {
                 _isError.postValue(true)
                 _isLoading.postValue(false)
+                _loginSuccess.postValue(false)
             }
         }
     }
@@ -90,6 +93,10 @@ class LoginViewModel : ViewModel() {
     // Función para descartar el diálogo
     fun dismissDialog() {
         _showDialog.value = false
+    }
+
+    fun resetLoginSuccessState(){
+        _loginSuccess.value = false
     }
 }
 

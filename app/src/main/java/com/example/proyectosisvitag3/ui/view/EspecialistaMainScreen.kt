@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun EspecialistaMainScreen() {
@@ -21,4 +22,10 @@ fun EspecialistaMainScreen() {
     ) {
         Text(text = "Pantalla principal del Especialista")
     }
+}
+
+@Preview
+@Composable
+fun EspecialistaMainScreenPreview() {
+    EspecialistaMainScreen()
 }

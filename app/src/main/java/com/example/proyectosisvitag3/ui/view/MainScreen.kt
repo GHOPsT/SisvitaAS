@@ -117,25 +117,6 @@ fun UserTypeButtons(
     }
 }
 
-// Mover estas funciones a un archivo de componentes si se reutilizan
-@Composable
-fun AlumnoImage(modifier: Modifier) {
-    Image(
-        painter = painterResource(id = R.drawable.estudiantes),
-        contentDescription = "Header",
-        modifier = modifier
-    )
-}
-
-@Composable
-fun ProfesionalImage(modifier: Modifier) {
-    Image(
-        painter = painterResource(id = R.drawable.profesional),
-        contentDescription = "Header",
-        modifier = modifier
-    )
-}
-
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun MainScreenPreview() {
