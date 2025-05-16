@@ -1,6 +1,7 @@
 package com.example.proyectosisvitag3.ui.view
 
 //import androidx.activity.result.launch
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,12 +26,14 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.proyectosisvitag3.R
 import com.example.proyectosisvitag3.ui.components.CustomInputField
 import com.example.proyectosisvitag3.ui.theme.SoftMint
 import com.example.proyectosisvitag3.ui.viewmodel.RegisterViewModel
@@ -40,11 +43,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegisterScreen(
     navController: NavHostController,
-    viewModel: RegisterViewModel // We'll define this ViewModel later
+    viewModel: RegisterViewModel
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = SoftMint // Set the background color using SoftMint
+        color = SoftMint
     ) {
         Box(
             Modifier
@@ -106,7 +109,11 @@ fun RegisterForm(
 
     // Title or logo for the registration screen
     // Replace with your actual logo or title composable
-    Text(text = "Crear Cuenta", style = MaterialTheme.typography.headlineMedium)
+    Image(
+        painter = painterResource(id = R.drawable.logo_sisvita),
+        contentDescription = "Header",
+        modifier = Modifier.height(100.dp)
+    )
     Spacer(modifier = Modifier.height(24.dp))
 
     // Input fields using the CustomInputField
