@@ -3,20 +3,17 @@ package com.example.proyectosisvitag3
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectosisvitag3.ui.theme.ProyectoSisvitaG3Theme
-import com.example.proyectosisvitag3.ui.theme.iu.*
-import com.example.proyectosisvitag3.ui.theme.iu.formulario.PreguntasCuestionario
+import com.example.proyectosisvitag3.ui.theme.iu.LoginScreen
+import com.example.proyectosisvitag3.ui.theme.iu.LoginViewModel
+import com.example.proyectosisvitag3.ui.view.RegisterScreen
 import com.example.proyectosisvitag3.ui.view.main.MainScreen
+import com.example.proyectosisvitag3.ui.viewmodel.RegisterViewModel
 
 // In your MainActivity.kt or where you set up your NavHost
 
@@ -34,8 +31,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
-
     val loginViewModel = remember { LoginViewModel() }
+    val registerViewModel = remember { RegisterViewModel() }
 
     NavHost(navController = navController, startDestination = "mainScreen") { // Set your start destination
         composable("mainScreen") {
@@ -46,7 +43,7 @@ fun AppNavigation() {
             LoginScreen(navController = navController, viewModel = loginViewModel)
         }
         composable("registerScreen") {
-            // Add your RegisterScreen composable and its ViewModel
+            RegisterScreen(navController = navController, viewModel = registerViewModel)
         }
         composable("studentMainScreen") {
             // Add your StudentMainScreen composable here
