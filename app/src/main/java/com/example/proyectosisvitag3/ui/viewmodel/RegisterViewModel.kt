@@ -11,8 +11,11 @@ import kotlinx.coroutines.launch
 class RegisterViewModel : ViewModel() {
 
     // Observables for input fields
-    private val _name = MutableLiveData("")
-    val name: LiveData<String> = _name
+    private val _firstName = MutableLiveData("") // New LiveData for Nombres
+    val firstName: LiveData<String> = _firstName
+
+    private val _lastName = MutableLiveData("")   // New LiveData for Apellidos
+    val lastName: LiveData<String> = _lastName
 
     private val _email = MutableLiveData("")
     val email: LiveData<String> = _email
@@ -35,8 +38,13 @@ class RegisterViewModel : ViewModel() {
 
     // --- Functions to handle input changes ---
 
-    fun onNameChange(newName: String) {
-        _name.value = newName
+    fun onFirstNameChange(newFirstName: String) {
+        _firstName.value = newFirstName
+        updateRegisterButtonState()
+    }
+
+    fun onLastNameChange(newLastName: String) {
+        _lastName.value = newLastName
         updateRegisterButtonState()
     }
 
@@ -59,12 +67,13 @@ class RegisterViewModel : ViewModel() {
 
     private fun updateRegisterButtonState() {
         // Simple validation logic
-        val isNameValid = _name.value?.isNotBlank() ?: false
+        val isFirstNameValid = _firstName.value?.isNotBlank() ?: false
+        val isLastNameValid = _lastName.value?.isNotBlank() ?: false
         val isEmailValid = _email.value?.let { Patterns.EMAIL_ADDRESS.matcher(it).matches() } ?: false
         val isPasswordValid = (_password.value?.length ?: 0) > 6
         val isConfirmPasswordValid = _confirmPassword.value == _password.value && _confirmPassword.value?.isNotBlank() ?: false
 
-        _registerEnable.value = isNameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid
+        _registerEnable.value = isFirstNameValid && isLastNameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid
     }
 
     // --- Registration Logic ---

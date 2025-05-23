@@ -89,7 +89,8 @@ fun RegisterForm(
     onLoginClick: () -> Unit
 ) {
     // Observe states from your RegisterViewModel (replace with actual ViewModel states)
-    val name: String by viewModel.name.observeAsState(initial = "")
+    val firstName: String by viewModel.firstName.observeAsState(initial = "") // New state for Nombres
+    val lastName: String by viewModel.lastName.observeAsState(initial = "")   // New state for Apellidos
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")
     val confirmPassword: String by viewModel.confirmPassword.observeAsState(initial = "")
@@ -118,9 +119,18 @@ fun RegisterForm(
 
     // Input fields using the CustomInputField
     CustomInputField(
-        value = name,
-        onValueChange = { viewModel.onNameChange(it) }, // Implement this in ViewModel
-        placeholder = "Nombre Completo",
+        value = firstName,
+        onValueChange = { viewModel.onFirstNameChange(it) }, // Implement this in ViewModel
+        placeholder = "Nombres",
+        keyboardType = KeyboardType.Text
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+
+    // Input field for "Apellidos"
+    CustomInputField(
+        value = lastName,
+        onValueChange = { viewModel.onLastNameChange(it) }, // Implement this in ViewModel
+        placeholder = "Apellidos",
         keyboardType = KeyboardType.Text
     )
     Spacer(modifier = Modifier.height(16.dp))
