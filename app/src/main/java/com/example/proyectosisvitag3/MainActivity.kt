@@ -6,12 +6,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.proyectosisvitag3.ui.theme.ProyectoSisvitaG3Theme
 import com.example.proyectosisvitag3.ui.theme.iu.LoginScreen
 import com.example.proyectosisvitag3.ui.theme.iu.LoginViewModel
+import com.example.proyectosisvitag3.ui.view.CuestionarioScreen
 import com.example.proyectosisvitag3.ui.view.StudentMainScreen
 import com.example.proyectosisvitag3.ui.view.StudentMainViewModel
 import com.example.proyectosisvitag3.ui.view.MenuTestScreen
@@ -56,6 +59,22 @@ fun AppNavigation() {
         composable("menuTestScreen") {
             MenuTestScreen(navController = navController)
             // If MenuTestScreen also needs a ViewModel, provide it here
+        }
+
+        composable(
+            route = "cuestionarioScreen/{nombreTest}/{cantPreguntas}",
+            arguments = listOf(
+                navArgument("nombreTest") { type = NavType.StringType },
+                navArgument("cantPreguntas") { type = NavType.IntType }
+            )
+        ) { backStackEntry ->
+            val testName = backStackEntry.arguments?.getString("nombreTest") ?: "Test Desconocido"
+            val numQuestions = backStackEntry.arguments?.getInt("cantPreguntas") ?: 0
+            CuestionarioScreen(
+                navController = navController,
+                nombreTest = testName,
+                cantPreguntas = numQuestions
+            )
         }
         // Add other destinations here
     }
