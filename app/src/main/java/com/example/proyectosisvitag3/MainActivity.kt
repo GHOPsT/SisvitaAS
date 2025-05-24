@@ -5,12 +5,16 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectosisvitag3.ui.theme.ProyectoSisvitaG3Theme
 import com.example.proyectosisvitag3.ui.theme.iu.LoginScreen
 import com.example.proyectosisvitag3.ui.theme.iu.LoginViewModel
+import com.example.proyectosisvitag3.ui.view.StudentMainScreen
+import com.example.proyectosisvitag3.ui.view.StudentMainViewModel
+import com.example.proyectosisvitag3.ui.view.MenuTestScreen
 import com.example.proyectosisvitag3.ui.view.RegisterScreen
 import com.example.proyectosisvitag3.ui.view.main.MainScreen
 import com.example.proyectosisvitag3.ui.viewmodel.RegisterViewModel
@@ -33,6 +37,7 @@ fun AppNavigation() {
     val navController = rememberNavController()
     val loginViewModel = remember { LoginViewModel() }
     val registerViewModel = remember { RegisterViewModel() }
+    val studentMainViewModel: StudentMainViewModel = viewModel() // ViewModel for StudentMainScreen
 
     NavHost(navController = navController, startDestination = "mainScreen") { // Set your start destination
         composable("mainScreen") {
@@ -46,9 +51,11 @@ fun AppNavigation() {
             RegisterScreen(navController = navController, viewModel = registerViewModel)
         }
         composable("studentMainScreen") {
-            // Add your StudentMainScreen composable here
-            // This is the missing destination!
-            // StudentMainScreen(...)
+            StudentMainScreen(navController = navController, viewModel = studentMainViewModel)
+        }
+        composable("menuTestScreen") {
+            MenuTestScreen(navController = navController)
+            // If MenuTestScreen also needs a ViewModel, provide it here
         }
         // Add other destinations here
     }

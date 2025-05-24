@@ -1,4 +1,4 @@
-package com.example.proyectosisvitag3.ui.theme.iu // Or your correct package
+package com.example.proyectosisvitag3.ui.view // Or your correct package
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -186,7 +186,7 @@ fun StudentMainScreen(
                 ActionButton(
                     text = "REALIZAR TEST",
                     onClick = {
-                        // TODO: navController.navigate("testScreen_route")
+                        navController.navigate("menuTestScreen")
                     }
                 )
                 Spacer(modifier = Modifier.height(12.dp))
