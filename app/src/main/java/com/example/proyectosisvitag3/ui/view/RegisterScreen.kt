@@ -96,6 +96,7 @@ fun RegisterForm(
     val registerEnable: Boolean by viewModel.registerEnable.observeAsState(initial = false)
     val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
     val registerSuccess: Boolean by viewModel.registerSuccess.observeAsState(initial = false)
+    val userType: String by viewModel.userType.observeAsState(initial = "estudiante")
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -159,6 +160,27 @@ fun RegisterForm(
         visualTransformation = PasswordVisualTransformation()
     )
     Spacer(modifier = Modifier.height(24.dp))
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    // Selector de tipo de usuario
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text("Tipo de usuario:", modifier = Modifier.padding(end = 8.dp))
+        RadioButton(
+            selected = userType == "estudiante",
+            onClick = { viewModel.onUserTypeChange("estudiante") }
+        )
+        Text("Estudiante", modifier = Modifier.padding(end = 16.dp))
+        RadioButton(
+            selected = userType == "especialista",
+            onClick = { viewModel.onUserTypeChange("especialista") }
+        )
+        Text("Especialista")
+    }
+    Spacer(modifier = Modifier.height(16.dp))
 
     // Register Button
     Button(

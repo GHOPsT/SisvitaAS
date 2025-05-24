@@ -11,10 +11,10 @@ import kotlinx.coroutines.launch
 class RegisterViewModel : ViewModel() {
 
     // Observables for input fields
-    private val _firstName = MutableLiveData("") // New LiveData for Nombres
+    private val _firstName = MutableLiveData("")
     val firstName: LiveData<String> = _firstName
 
-    private val _lastName = MutableLiveData("")   // New LiveData for Apellidos
+    private val _lastName = MutableLiveData("")
     val lastName: LiveData<String> = _lastName
 
     private val _email = MutableLiveData("")
@@ -36,7 +36,15 @@ class RegisterViewModel : ViewModel() {
     private val _registerSuccess = MutableLiveData(false)
     val registerSuccess: LiveData<Boolean> = _registerSuccess
 
+    private val _userType = MutableLiveData("estudiante")
+    val userType: LiveData<String> = _userType
+
     // --- Functions to handle input changes ---
+
+    fun onUserTypeChange(newType: String) {
+        _userType.value = newType
+        updateRegisterButtonState()
+    }
 
     fun onFirstNameChange(newFirstName: String) {
         _firstName.value = newFirstName
@@ -66,7 +74,6 @@ class RegisterViewModel : ViewModel() {
     // --- Validation and state update ---
 
     private fun updateRegisterButtonState() {
-        // Simple validation logic
         val isFirstNameValid = _firstName.value?.isNotBlank() ?: false
         val isLastNameValid = _lastName.value?.isNotBlank() ?: false
         val isEmailValid = _email.value?.let { Patterns.EMAIL_ADDRESS.matcher(it).matches() } ?: false
@@ -80,32 +87,26 @@ class RegisterViewModel : ViewModel() {
 
     fun onRegisterSelected() {
         _isLoading.value = true
-        _registerSuccess.value = false // Reset success state before starting
-
-        // In a real application, you would make an API call here
-        // using viewModelScope to handle coroutines lifecycle.
         viewModelScope.launch {
-            // Simulate a network request delay
-            delay(2000) // Simulate 2 seconds of work
+            try {
+                val request = RegisterRequest(
+                    nombres = _firstName.value!!,
+                    apellidos = _lastName.value!!,
+                    email = _email.value!!,
+                    password = _password.value!!,
+                    tipoUsuario = _userType.value!!
+                )
 
-            // --- Placeholder for API call and response handling ---
-            // Replace this with your actual registration API call
-            val registrationSuccessful = true // Simulate successful registration for now
+                val response = apiService.register(request)
 
-            if (registrationSuccessful) {
-                _registerSuccess.value = true
-            } else {
-                // Handle registration failure (e.g., show an error message)
-                // _showError.value = true
-                // _errorMessage.value = "Registration failed. Please try again."
+                if (response.isSuccessful && response.body()?.success == true) {
+                    _registerSuccess.value = true
+                }
+            } catch (e: Exception) {
+                // error
+            } finally {
+                _isLoading.value = false
             }
-
-            _isLoading.value = false
         }
-    }
-
-    // Function to reset registerSuccess state after navigation
-    fun resetRegisterSuccessState() {
-        _registerSuccess.value = false
     }
 }
