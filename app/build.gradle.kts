@@ -73,10 +73,9 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation("androidx.compose.ui:ui:1.5.1") // o la versión que estés usando
     implementation("androidx.compose.ui:ui-text:1.5.1")
-
     implementation("org.postgresql:postgresql:42.2.9")
-
-    //Nuevo
     implementation ("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0") // Para HttpLoggingInterceptor
+
 }

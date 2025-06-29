@@ -61,7 +61,10 @@ class LoginViewModel : ViewModel() {
 
     // Función para iniciar sesión
     fun onLoginSelected() {
-        _isLoading.value = true
+
+        _loginSuccess.value= true
+        //Quitar de comentario cuando esté listo el login
+        /*_isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val loginRequest = LoginRequest(_email.value ?: "", _password.value ?: "")
@@ -85,7 +88,7 @@ class LoginViewModel : ViewModel() {
                 _isLoading.postValue(false)
                 _loginSuccess.postValue(false)
             }
-        }
+        }*/
     }
 
 

@@ -3,7 +3,6 @@ package com.example.proyectosisvitag3.ui.theme.iu
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
@@ -21,14 +20,14 @@ import kotlinx.coroutines.launch
 import com.example.proyectosisvitag3.R
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.proyectosisvitag3.ui.components.CustomInputField
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel) {
+    val userType = navController.currentBackStackEntry
+        ?.arguments?.getString("userType") ?: "estudiante" // default
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFFEFFFFF)
@@ -42,7 +41,13 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel) {
             Login(
                 modifier = Modifier.align(Alignment.Center),
                 viewModel = viewModel,
-                onLoginSuccess = { navController.navigate("studentMainScreen") }, // Pasa la acción de navegación
+                userType = userType,
+                onLoginSuccess = {
+                    if (userType == "estudiante") {
+                        navController.navigate("studentMainScreen")
+                    } else {
+                        navController.navigate("EspecialistaMainScreen") }
+                                 }, // Pasa la acción de navegación
                 onRegisterClick = { navController.navigate("registerScreen") }     // Pasa la acción de navegación
             )
         }
@@ -65,7 +70,8 @@ fun Login(
     modifier: Modifier,
     viewModel: LoginViewModel,
     onLoginSuccess: () -> Unit, // Lambda para manejar la navegación al éxito
-    onRegisterClick: () -> Unit // Lambda para manejar el clic en registrarse
+    onRegisterClick: () -> Unit, // Lambda para manejar el clic en registrarse
+    userType: String,
 ) {
     val email: String by viewModel.email.observeAsState(initial = "")
     val password: String by viewModel.password.observeAsState(initial = "")

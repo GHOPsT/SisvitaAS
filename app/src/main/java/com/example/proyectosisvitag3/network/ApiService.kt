@@ -13,6 +13,11 @@ import retrofit2.http.POST
 import retrofit2.Response
 
 interface ApiService {
+    @POST("chatbot")
+    suspend fun sendMessage(
+        @Body request: ChatRequest
+    ): Response<ChatResponse>
+
     @POST("Auth/v1/register")
     suspend fun register(
         @Body registerRequest: RegisterRequest

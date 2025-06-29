@@ -30,9 +30,9 @@ fun MainScreen(navController: NavHostController) { // Considera pasar lambdas de
         color = Color(0xFFEFFFFF)
     ) {
         MainScreenContent(
-            onStudentClick = { navController.navigate("loginScreen") }, // Pasar acciones de navegación
-            onSpecialistClick = { navController.navigate("loginScreen") },
-            onVirtualAssistantClick = { navController.navigate("loginScreen") }
+            onStudentClick = { navController.navigate("loginScreen?userType=estudiante") },
+            onSpecialistClick = { navController.navigate("loginScreen?userType=especialista") },
+            onVirtualAssistantClick = { navController.navigate("loginScreen") } // Cambiar ruta cuando se implemente
         )
     }
 }

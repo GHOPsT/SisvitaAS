@@ -15,6 +15,8 @@ import com.example.proyectosisvitag3.ui.theme.ProyectoSisvitaG3Theme
 import com.example.proyectosisvitag3.ui.theme.iu.LoginScreen
 import com.example.proyectosisvitag3.ui.theme.iu.LoginViewModel
 import com.example.proyectosisvitag3.ui.view.CuestionarioScreen
+import com.example.proyectosisvitag3.ui.view.EspecialistaMainScreen
+import com.example.proyectosisvitag3.ui.view.EspecialistaMainViewModel
 import com.example.proyectosisvitag3.ui.view.StudentMainScreen
 import com.example.proyectosisvitag3.ui.view.StudentMainViewModel
 import com.example.proyectosisvitag3.ui.view.MenuTestScreen
@@ -59,6 +61,10 @@ fun AppNavigation() {
         composable("menuTestScreen") {
             MenuTestScreen(navController = navController)
             // If MenuTestScreen also needs a ViewModel, provide it here
+        }
+        composable("especialistaMainScreen") {
+            val especialistaViewModel: EspecialistaMainViewModel = viewModel()
+            EspecialistaMainScreen(navController = navController, viewModel = especialistaViewModel)
         }
 
         composable(
