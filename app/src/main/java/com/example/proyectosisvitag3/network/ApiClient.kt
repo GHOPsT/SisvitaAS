@@ -1,13 +1,11 @@
 package com.example.proyectosisvitag3.network
-package com.example.proyectosisvitaq3.network.ApiService.kt
-// app/src/main/java/com/example/proyectosisvitaq3/network/ApiClient.kt
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-
+import com.example.proyectosisvitag3.ui.theme.network.ApiService
 object ApiClient {
-    private const val BASE_URL = "http://localhost:3000/api/" // Cambiar por tu URL
+    /*private const val BASE_URL = "http://localhost:3000/api/" // Cambiar por tu URL
     //Configura el interceptor de logs
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
@@ -27,5 +25,10 @@ object ApiClient {
     //Crea la instancia dle servicio
     val apiService: ApiService by lazy {
         retrofit.create(ApiService::class.java)
+    }*/
+
+    //Mock para pruebas (eliminar cuando se implemente la funcionalidad)
+    val apiService: ApiService by lazy {
+        MockApiService()
     }
 }

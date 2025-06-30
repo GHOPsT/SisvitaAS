@@ -5,11 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay // Using delay for simulation purposes
+import com.example.proyectosisvitag3.data.model.request.RegisterRequest
+import com.example.proyectosisvitag3.network.ApiClient
+import com.example.proyectosisvitag3.ui.theme.network.ApiService
 import kotlinx.coroutines.launch
 
 class RegisterViewModel : ViewModel() {
 
+    private val apiService: ApiService = ApiClient.apiService
     // Observables for input fields
     private val _firstName = MutableLiveData("")
     val firstName: LiveData<String> = _firstName
@@ -97,7 +100,7 @@ class RegisterViewModel : ViewModel() {
                     tipoUsuario = _userType.value!!
                 )
 
-                val response = apiService.register(request)
+                val response = ApiClient.apiService.register(request)
 
                 if (response.isSuccessful && response.body()?.success == true) {
                     _registerSuccess.value = true

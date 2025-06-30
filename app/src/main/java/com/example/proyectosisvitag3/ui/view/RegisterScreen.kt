@@ -4,6 +4,7 @@ package com.example.proyectosisvitag3.ui.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -208,4 +210,8 @@ fun RegisterForm(
     TextButton(onClick = onLoginClick) {
         Text("¿Ya tienes una cuenta? Inicia sesión")
     }
+}
+
+private fun RegisterViewModel.resetRegisterSuccessState() {
+    TODO("Not yet implemented")
 }
