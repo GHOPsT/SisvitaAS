@@ -32,7 +32,7 @@ fun MainScreen(navController: NavHostController) { // Considera pasar lambdas de
         MainScreenContent(
             onStudentClick = { navController.navigate("loginScreen?userType=estudiante") },
             onSpecialistClick = { navController.navigate("loginScreen?userType=especialista") },
-            onVirtualAssistantClick = { navController.navigate("loginScreen") } // Cambiar ruta cuando se implemente
+            onVirtualAssistantClick = { navController.navigate("virtualAssistantScreen") }
         )
     }
 }

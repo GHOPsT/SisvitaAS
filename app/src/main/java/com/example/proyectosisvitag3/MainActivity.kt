@@ -21,6 +21,7 @@ import com.example.proyectosisvitag3.ui.view.StudentMainScreen
 import com.example.proyectosisvitag3.ui.view.StudentMainViewModel
 import com.example.proyectosisvitag3.ui.view.MenuTestScreen
 import com.example.proyectosisvitag3.ui.view.RegisterScreen
+import com.example.proyectosisvitag3.ui.view.VirtualAssistantScreen
 import com.example.proyectosisvitag3.ui.view.main.MainScreen
 import com.example.proyectosisvitag3.ui.viewmodel.RegisterViewModel
 
@@ -65,6 +66,10 @@ fun AppNavigation() {
         composable("especialistaMainScreen") {
             val especialistaViewModel: EspecialistaMainViewModel = viewModel()
             EspecialistaMainScreen(navController = navController, viewModel = especialistaViewModel)
+        }
+
+        composable("virtualAssistantScreen") {
+            VirtualAssistantScreen(navController = navController)
         }
 
         composable(
