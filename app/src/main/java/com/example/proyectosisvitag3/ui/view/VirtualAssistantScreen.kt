@@ -20,8 +20,7 @@ fun VirtualAssistantScreen(navController: NavHostController) {
     ) {
         VirtualAssistantScreenContent(
             onStartClick = {
-                // Aquí puedes definir la navegación para '¡Empecemos!'
-                // Por ejemplo: navController.navigate("otraRuta")
+                navController.navigate("chatScreen")
             },
             onBackClick = {
                 navController.popBackStack() // Regresa a la pantalla anterior (MainScreen)

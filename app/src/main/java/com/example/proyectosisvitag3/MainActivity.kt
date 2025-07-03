@@ -14,6 +14,7 @@ import androidx.navigation.navArgument
 import com.example.proyectosisvitag3.ui.theme.ProyectoSisvitaG3Theme
 import com.example.proyectosisvitag3.ui.theme.iu.LoginScreen
 import com.example.proyectosisvitag3.ui.theme.iu.LoginViewModel
+import com.example.proyectosisvitag3.ui.view.ChatScreen
 import com.example.proyectosisvitag3.ui.view.CuestionarioScreen
 import com.example.proyectosisvitag3.ui.view.EspecialistaMainScreen
 import com.example.proyectosisvitag3.ui.view.EspecialistaMainViewModel
@@ -70,6 +71,10 @@ fun AppNavigation() {
 
         composable("virtualAssistantScreen") {
             VirtualAssistantScreen(navController = navController)
+        }
+
+        composable("chatScreen") {
+            ChatScreen(navController = navController,)
         }
 
         composable(
