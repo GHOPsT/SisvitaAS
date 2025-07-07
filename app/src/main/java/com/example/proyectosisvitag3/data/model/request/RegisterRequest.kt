@@ -1,9 +1,9 @@
 package com.example.proyectosisvitag3.data.model.request
 
 data class RegisterRequest (
-    val nombres: String,
-    val apellidos: String,
+    val firstName: String,
+    val lastName: String,
     val email: String,
     val password: String,
-    val tipoUsuario: String,  // "estudiante" o "especialista"
+    val isSpecialist: Boolean = false, // Opcional, por defecto false
 )

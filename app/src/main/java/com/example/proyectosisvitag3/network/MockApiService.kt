@@ -1,16 +1,15 @@
 package com.example.proyectosisvitag3.network // O el paquete donde quieras ubicarlo, ej: com.example.proyectosisvitag3.network.mocks
 
 import com.example.proyectosisvitag3.data.model.request.RegisterRequest
-import com.example.proyectosisvitag3.data.model.response.RegisterResponse
-import com.example.proyectosisvitag3.ui.theme.data.model.LoginRequest
-import com.example.proyectosisvitag3.ui.theme.data.model.LoginResponse
+import com.example.proyectosisvitag3.data.model.request.LoginRequest
+import com.example.proyectosisvitag3.data.model.response.LoginResponse
 import com.example.proyectosisvitag3.ui.theme.data.model.UpdateRequest
-import com.example.proyectosisvitag3.ui.theme.data.model.UpdateResponse
+import com.example.proyectosisvitag3.ui.theme.data.model.RegisterResponse
 import com.example.proyectosisvitag3.ui.theme.network.ApiService
 //import com.google.firebase.appdistribution.gradle.ApiService
 // Importa otros modelos de request/response si los usas para otros métodos mockeados
-// import com.example.proyectosisvitag3.ui.theme.data.model.LoginRequest
-// import com.example.proyectosisvitag3.ui.theme.data.model.LoginResponse
+// import com.example.proyectosisvitag3.data.model.request.LoginRequest
+// import com.example.proyectosisvitag3.data.model.response.LoginResponse
 // import com.example.proyectosisvitag3.ui.theme.data.model.UpdateRequest
 // import com.example.proyectosisvitag3.ui.theme.data.model.UpdateResponse
 import kotlinx.coroutines.delay
@@ -79,7 +78,7 @@ class MockApiService : ApiService { // Implementa la interfaz
         TODO("Not yet implemented")
     }
 
-    override suspend fun update(updateRequest: UpdateRequest): Response<UpdateResponse> {
+    override suspend fun update(updateRequest: UpdateRequest): Response<RegisterResponse> {
         TODO("Not yet implemented")
     }
 

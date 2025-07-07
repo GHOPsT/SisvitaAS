@@ -1,17 +1,14 @@
 package com.example.proyectosisvitag3.ui.theme.iu
 
-import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.State
 import com.example.proyectosisvitag3.ui.theme.data.model.UpdateRequest
 import com.example.proyectosisvitag3.ui.theme.data.repository.UpdateRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewModelScope
-import com.example.proyectosisvitag3.ui.theme.data.model.UpdateResponse
+import com.example.proyectosisvitag3.ui.theme.data.model.RegisterResponse
 import retrofit2.Response
 
 class EvaluarResultadoViewModel : ViewModel()  {
@@ -47,7 +44,7 @@ class EvaluarResultadoViewModel : ViewModel()  {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val updateRequest = UpdateRequest(_nivelAnsiedad.value ?: "", _observaciones.value ?: "")
-                val response: Response<UpdateResponse> = repository.update(updateRequest)
+                val response: Response<RegisterResponse> = repository.update(updateRequest)
                 if (response.isSuccessful && response.body() != null) {
                     val updateResponse = response.body()
                     if (updateResponse!!.success) {

@@ -1,17 +1,15 @@
-package com.example.proyectosisvitag3.ui.theme.network
+package com.example.proyectosisvitag3.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiInstance {
-    private val retrofit by lazy{
+object ApiClient {
+    private const val BASE_URL = "http://192.168.56.1:3000/"
+
+    val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://sisvitag3.onrender.com")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-
-    val apiInstance by lazy{
-        retrofit.create(ApiService::class.java)
     }
 }

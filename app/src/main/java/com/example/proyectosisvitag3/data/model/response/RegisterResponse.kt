@@ -1,8 +1,11 @@
 package com.example.proyectosisvitag3.data.model.response
-
-data class RegisterResponse (
-    val success: Boolean,
+data class RegisterResponse(
     val message: String,
-    val userId: Int? = null,  // ID común
-    val tipoUsuario: String? = null  // "estudiante" o "especialista"
+    val user: UserResponse
+)
+
+data class UserResponse(
+    val id: Int,
+    val email: String,
+    val isSpecialist: Boolean
 )
