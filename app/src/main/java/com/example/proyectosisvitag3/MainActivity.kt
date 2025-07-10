@@ -14,6 +14,7 @@ import androidx.navigation.navArgument
 import com.example.proyectosisvitag3.ui.theme.ProyectoSisvitaG3Theme
 import com.example.proyectosisvitag3.ui.theme.iu.LoginScreen
 import com.example.proyectosisvitag3.ui.theme.iu.LoginViewModel
+import com.example.proyectosisvitag3.ui.view.AgregaTestScreen
 import com.example.proyectosisvitag3.ui.view.ChatScreen
 import com.example.proyectosisvitag3.ui.view.CuestionarioScreen
 import com.example.proyectosisvitag3.ui.view.EspecialistaMainScreen
@@ -91,6 +92,10 @@ fun AppNavigation() {
                 nombreTest = testName,
                 cantPreguntas = numQuestions
             )
+        }
+
+        composable("agregatestScreen") {
+            AgregaTestScreen(navController = navController)
         }
         // Add other destinations here
     }

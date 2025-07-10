@@ -30,6 +30,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectosisvitag3.ui.theme.SoftMint
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember // Asegúrate de tener este import
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.lifecycle.viewmodel.compose.viewModel // Para un futuro ViewModel
+import com.example.proyectosisvitag3.ui.theme.SoftMint
 
 // Define a simple data class for the test items
 data class TestItemData(
@@ -51,6 +58,17 @@ val sampleTestList = listOf(
 
 @Composable
 fun MenuTestScreen(navController: NavHostController) {
+    // Combinamos la lista original con los tests agregados dinámicamente
+    // En una app real, esto vendría de un ViewModel que observa una fuente de datos.
+    val combinedTestList = remember {
+        // Creamos una nueva lista para que Compose detecte el cambio si testsAgregadosGlobal se modifica
+        sampleTestList + testsAgregadosGlobal
+    }
+
+    // Para forzar la recomposición cuando testsAgregadosGlobal cambia.
+    // Esto es un workaround para la simulación. Con ViewModel y StateFlow/LiveData sería más limpio.
+    val forceRecompositionKey by rememberUpdatedState(testsAgregadosGlobal.toList())
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = SoftMint // Light cyan background like in the image
@@ -68,17 +86,24 @@ fun MenuTestScreen(navController: NavHostController) {
             )
 
             // Scrollable list of tests
-            LazyColumn(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(horizontal = 20.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(sampleTestList) { testItem ->
-                    TestListItem(
-                        testData = testItem,
-                        navController = navController // Pass navController here
-                    )
+            if (combinedTestList.isEmpty() && forceRecompositionKey.isEmpty()) { // Usamos forceRecompositionKey para re-evaluar
+                // Podrías mostrar un mensaje si no hay tests
+                Box(modifier = Modifier.weight(1f).fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Text("No hay tests disponibles en este momento.")
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 20.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(sampleTestList) { testItem ->
+                        TestListItem(
+                            testData = testItem,
+                            navController = navController // Pass navController here
+                        )
+                    }
                 }
             }
 

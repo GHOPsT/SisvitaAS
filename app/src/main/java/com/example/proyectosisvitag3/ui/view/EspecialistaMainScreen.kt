@@ -165,6 +165,15 @@ fun EspecialistaMainScreen(
                     // Teal button color from image
                     containerColor = Color(0xFF66D8C8)
                 )
+                Spacer(modifier = Modifier.height(16.dp))
+                ActionButtonEspecialista(
+                    text = "AÑADIR TEST",
+                    onClick = {
+                        navController.navigate("agregaTestScreen")
+                    },
+                    // Teal button color from image
+                    containerColor = Color(0xFF66D8C8)
+                )
 
                 Spacer(modifier = Modifier.weight(1f)) // Pushes logout button to the bottom
 
