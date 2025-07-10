@@ -44,7 +44,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun RegisterScreen(
     navController: NavHostController,
-    viewModel: RegisterViewModel
+    viewModel: RegisterViewModel,
+    userTypeFromArgs: String
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -64,8 +65,21 @@ fun RegisterScreen(
             ) {
                 RegisterForm(
                     viewModel = viewModel,
-                    onRegisterSuccess = { navController.navigate("loginScreen") }, // Navigate to login on success
-                    onLoginClick = { navController.navigate("loginScreen") } // Navigate to login if user wants to go back
+                    onRegisterSuccess = {
+                        // Pasa el userType de vuelta al LoginScreen
+                        navController.navigate("loginScreen/$userTypeFromArgs") {
+                            // Opcional: Limpia la pila hasta loginScreen si vienes de un flujo profundo
+                            popUpTo("loginScreen") { inclusive = true } // Esto te llevaría a una nueva instancia de LoginScreen
+                        }
+                    },
+                    onLoginClick = {
+                        // Pasa el userType de vuelta al LoginScreen
+                        navController.navigate("loginScreen/$userTypeFromArgs") {
+                            // Considera la lógica de popUpTo aquí también si es necesario
+                            popUpTo("loginScreen") { inclusive = true }
+                        }
+                    },
+                    initialUserType = userTypeFromArgs // Pasa el userType al RegisterForm
                 )
             }
         }
@@ -78,7 +92,7 @@ fun RegisterScreen(
 fun RegisterScreenPreview() {
     val navController = rememberNavController()
     val viewModel = RegisterViewModel()
-    RegisterScreen(navController = navController, viewModel = viewModel)
+    RegisterScreen(navController = navController, viewModel = viewModel, userTypeFromArgs = "estudiante")
 }
 
 
@@ -87,7 +101,8 @@ fun RegisterScreenPreview() {
 fun RegisterForm(
     viewModel: RegisterViewModel,
     onRegisterSuccess: () -> Unit,
-    onLoginClick: () -> Unit
+    onLoginClick: () -> Unit,
+    initialUserType: String
 ) {
     // Observe states from your RegisterViewModel (replace with actual ViewModel states)
     val firstName: String by viewModel.firstName.observeAsState(initial = "") // New state for Nombres
@@ -98,9 +113,13 @@ fun RegisterForm(
     val registerEnable: Boolean by viewModel.registerEnable.observeAsState(initial = false)
     val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
     val registerSuccess: Boolean by viewModel.registerSuccess.observeAsState(initial = false)
-    val userType: String by viewModel.userType.observeAsState(initial = "estudiante")
 
     val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(initialUserType) {
+        viewModel.onUserTypeChange(initialUserType) // Establece el tipo de usuario inicial en el ViewModel
+    }
+    val userType: String by viewModel.userType.observeAsState(initial = initialUserType)
 
     // LaunchedEffect to handle navigation on successful registration
     LaunchedEffect(registerSuccess) {

@@ -10,7 +10,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.proyectosisvitag3.ui.view.main.MainScreenLogo
 
 @Composable
 fun VirtualAssistantScreen(navController: NavHostController) {
