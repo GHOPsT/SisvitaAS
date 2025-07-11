@@ -1,9 +1,19 @@
 // ui/view/main/MainScreen.kt
-package com.example.proyectosisvitag3.ui.view.main
+package com.example.proyectosisvitag3.ui.view
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,27 +22,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.proyectosisvitag3.R
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.rememberNavController
 
 val luckiestGuy = FontFamily(
     Font(R.font.luckiest_guy)
 )
 
 @Composable
-fun MainScreen(navController: NavHostController) { // Considera pasar lambdas de navegación aquí
+fun MainScreen(onStudentClick: () -> Unit,
+               onSpecialistClick: () -> Unit,
+               onVirtualAssistantClick: () -> Unit) { // Considera pasar lambdas de navegación aquí
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFFEFFFFF)
     ) {
         MainScreenContent(
-            onStudentClick = { navController.navigate("loginScreen?userType=estudiante") },
-            onSpecialistClick = { navController.navigate("loginScreen?userType=especialista") },
-            onVirtualAssistantClick = { navController.navigate("virtualAssistantScreen") }
+            onStudentClick = onStudentClick,
+            onSpecialistClick = onSpecialistClick,
+            onVirtualAssistantClick = onVirtualAssistantClick
         )
     }
 }
@@ -120,6 +130,8 @@ fun UserTypeButtons(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun MainScreenPreview() {
-    val navController = rememberNavController()
-    MainScreen(navController = navController)
+    MainScreen(onStudentClick = { /* Acción para preview de estudiante */ },
+        onSpecialistClick = { /* Acción para preview de especialista */ },
+        onVirtualAssistantClick = { /* Acción para preview de asistente virtual */ }
+    )
 }

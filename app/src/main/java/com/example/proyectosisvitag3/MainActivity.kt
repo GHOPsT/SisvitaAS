@@ -14,15 +14,17 @@ import androidx.navigation.navArgument
 import com.example.proyectosisvitag3.ui.theme.ProyectoSisvitaG3Theme
 import com.example.proyectosisvitag3.ui.theme.iu.LoginScreen
 import com.example.proyectosisvitag3.ui.theme.iu.LoginViewModel
+import com.example.proyectosisvitag3.ui.view.AgregaTestScreen
+import com.example.proyectosisvitag3.ui.view.ChatScreen
 import com.example.proyectosisvitag3.ui.view.CuestionarioScreen
 import com.example.proyectosisvitag3.ui.view.EspecialistaMainScreen
 import com.example.proyectosisvitag3.ui.view.EspecialistaMainViewModel
+import com.example.proyectosisvitag3.ui.view.MainScreen
 import com.example.proyectosisvitag3.ui.view.StudentMainScreen
 import com.example.proyectosisvitag3.ui.view.StudentMainViewModel
 import com.example.proyectosisvitag3.ui.view.MenuTestScreen
 import com.example.proyectosisvitag3.ui.view.RegisterScreen
 import com.example.proyectosisvitag3.ui.view.VirtualAssistantScreen
-import com.example.proyectosisvitag3.ui.view.main.MainScreen
 import com.example.proyectosisvitag3.ui.viewmodel.RegisterViewModel
 
 // In your MainActivity.kt or where you set up your NavHost
@@ -47,14 +49,36 @@ fun AppNavigation() {
 
     NavHost(navController = navController, startDestination = "mainScreen") { // Set your start destination
         composable("mainScreen") {
-            MainScreen(navController = navController)
+            MainScreen(
+                onStudentClick = { navController.navigate("loginScreen/estudiante") }, // Pasa "estudiante"
+                onSpecialistClick = { navController.navigate("loginScreen/especialista") }, // Pasa "especialista"
+                onVirtualAssistantClick = { navController.navigate("virtualAssistantScreen") } // O la ruta correspondiente
+            )
         }
-        composable("loginScreen") {
-            // Pass the appropriate ViewModel here
-            LoginScreen(navController = navController, viewModel = loginViewModel)
+        composable(
+            route = "loginScreen/{userType}", // Define el argumento en la ruta
+            arguments = listOf(navArgument("userType") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val userType = backStackEntry.arguments?.getString("userType") ?: "estudiante" // Obtén el argumento
+            LoginScreen(
+                navController = navController,
+                viewModel = loginViewModel, // Asegúrate de tener la instancia del ViewModel
+                // El LoginScreen ya está preparado para recibir userType de sus argumentos
+                // por cómo lo tienes definido actualmente:
+                // val userType = navController.currentBackStackEntry?.arguments?.getString("userType") ?: "estudiante"
+            )
         }
-        composable("registerScreen") {
-            RegisterScreen(navController = navController, viewModel = registerViewModel)
+
+        composable(
+            route = "registerScreen/{userType}", // Define el argumento en la ruta
+            arguments = listOf(navArgument("userType") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val userType = backStackEntry.arguments?.getString("userType") ?: "estudiante" // Obtén el argumento
+            RegisterScreen(
+                navController = navController,
+                viewModel = registerViewModel, // Asegúrate de tener la instancia del ViewModel
+                userTypeFromArgs = userType // Pasa el argumento al Composable
+            )
         }
         composable("studentMainScreen") {
             StudentMainScreen(navController = navController, viewModel = studentMainViewModel)
@@ -72,6 +96,10 @@ fun AppNavigation() {
             VirtualAssistantScreen(navController = navController)
         }
 
+        composable("chatScreen") {
+            ChatScreen(navController = navController,)
+        }
+
         composable(
             route = "cuestionarioScreen/{nombreTest}/{cantPreguntas}",
             arguments = listOf(
@@ -86,6 +114,10 @@ fun AppNavigation() {
                 nombreTest = testName,
                 cantPreguntas = numQuestions
             )
+        }
+
+        composable("agregatestScreen") {
+            AgregaTestScreen(navController = navController)
         }
         // Add other destinations here
     }

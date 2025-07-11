@@ -48,7 +48,7 @@ fun LoginScreen(navController: NavHostController, viewModel: LoginViewModel) {
                     } else {
                         navController.navigate("EspecialistaMainScreen") }
                                  }, // Pasa la acción de navegación
-                onRegisterClick = { navController.navigate("registerScreen") }     // Pasa la acción de navegación
+                onRegisterClick = { navController.navigate("registerScreen/$userType") }     // Pasa la acción de navegación
             )
         }
     }
