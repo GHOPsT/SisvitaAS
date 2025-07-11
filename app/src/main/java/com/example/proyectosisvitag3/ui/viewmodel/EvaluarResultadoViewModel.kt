@@ -3,8 +3,8 @@ package com.example.proyectosisvitag3.ui.theme.iu
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.proyectosisvitag3.ui.theme.data.model.UpdateRequest
-import com.example.proyectosisvitag3.ui.theme.data.repository.UpdateRepository
+import com.example.proyectosisvitag3.data.model.request.UpdateRequest
+import com.example.proyectosisvitag3.data.repository.UpdateRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewModelScope

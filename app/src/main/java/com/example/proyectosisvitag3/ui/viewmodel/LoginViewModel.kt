@@ -13,8 +13,11 @@ class LoginViewModel : ViewModel() {
     val loginResult = MutableLiveData<LoginResponse?>()
     val error = MutableLiveData<String?>()
 
+    val isLoading = MutableLiveData<Boolean>(false)
+
     fun login(context: Context, email: String, password: String) {
         viewModelScope.launch {
+            isLoading.value = true
             try {
                 val response: Response<LoginResponse> =
                     repository.login(LoginRequest(email, password))
@@ -27,6 +30,8 @@ class LoginViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 error.value = e.message
+            } finally {
+                isLoading.value = false
             }
         }
     }

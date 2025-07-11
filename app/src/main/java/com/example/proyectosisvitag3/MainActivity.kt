@@ -12,8 +12,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.proyectosisvitag3.ui.theme.ProyectoSisvitaG3Theme
-import com.example.proyectosisvitag3.ui.theme.iu.LoginScreen
-import com.example.proyectosisvitag3.ui.theme.iu.LoginViewModel
+import com.example.proyectosisvitag3.ui.view.LoginScreen
+import com.example.proyectosisvitag3.ui.viewmodel.LoginViewModel
 import com.example.proyectosisvitag3.ui.view.AgregaTestScreen
 import com.example.proyectosisvitag3.ui.view.ChatScreen
 import com.example.proyectosisvitag3.ui.view.CuestionarioScreen

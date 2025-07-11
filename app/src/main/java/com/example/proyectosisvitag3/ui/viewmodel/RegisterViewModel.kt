@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.proyectosisvitag3.data.model.request.RegisterRequest
-import com.example.proyectosisvitag3.network.ApiClient
 import com.example.proyectosisvitag3.ui.theme.network.ApiService
 import kotlinx.coroutines.launch
 
