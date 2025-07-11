@@ -6,8 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.proyectosisvitag3.data.model.request.RegisterRequest
-import com.example.proyectosisvitag3.ui.theme.network.ApiService
+import com.example.proyectosisvitag3.data.model.response.RegisterResponse
+import com.example.proyectosisvitag3.network.ApiClient
+import com.example.proyectosisvitag3.network.ApiService
 import kotlinx.coroutines.launch
+import retrofit2.Call
 
 class RegisterViewModel : ViewModel() {
 
@@ -90,19 +93,20 @@ class RegisterViewModel : ViewModel() {
     fun onRegisterSelected() {
         _isLoading.value = true
         viewModelScope.launch {
-            try {
-                val request = RegisterRequest(
-                    nombres = _firstName.value!!,
-                    apellidos = _lastName.value!!,
-                    email = _email.value!!,
-                    password = _password.value!!,
-                    tipoUsuario = _userType.value!!
-                )
+            try {val request = RegisterRequest(
+                firstName = _firstName.value ?: "",
+                lastName = _lastName.value ?: "",
+                email = _email.value ?: "",
+                password = _password.value ?: "",
+                isSpecialist = (_userType.value == "especialista")
+            )
 
-                val response = ApiClient.apiService.register(request)
+                val response = apiService.register(request)
 
                 if (response.isSuccessful && response.body()?.success == true) {
                     _registerSuccess.value = true
+                } else {
+                    // Manejar error de API o mostrar mensaje
                 }
             } catch (e: Exception) {
                 // error

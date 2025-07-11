@@ -1,6 +1,6 @@
 package com.example.proyectosisvitag3.ui.viewmodel
 
-import androidx.content.Context
+import android.content.Context
 import androidx.lifecycle.*
 import com.example.proyectosisvitag3.data.model.request.ChatRequest
 import com.example.proyectosisvitag3.data.model.response.ChatResponse
@@ -16,12 +16,8 @@ class ChatbotViewModel : ViewModel()  {
     fun sendMessage(context: Context, message: String) {
         viewModelScope.launch {
             try {
-                val token = getToken(context)
-                if (token = null) {
-                    error.value = "No se encontró el token de autenticación"
-                    return@launch
-                }
-                val response: Response<ChatResponse> = repository.sendMessage(token, ChatRequest(message))
+                var token = getToken(context)
+                val response: Response<ChatResponse> = repository.sendMessage(token as Nothing?, ChatRequest(message))
                 if (response.isSuccessful) {
                     chatReply.value = response.body()?.reply
                 } else {
@@ -32,7 +28,7 @@ class ChatbotViewModel : ViewModel()  {
             }
         }
     }
-    private fun getToken(context: Context) {
+    private fun getToken(context: Context): String? {
         val prefs = context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
         return prefs.getString("jwt_token", null)
     }

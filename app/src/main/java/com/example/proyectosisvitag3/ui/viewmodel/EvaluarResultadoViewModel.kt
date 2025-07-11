@@ -8,7 +8,7 @@ import com.example.proyectosisvitag3.data.repository.UpdateRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewModelScope
-import com.example.proyectosisvitag3.ui.theme.data.model.RegisterResponse
+import com.example.proyectosisvitag3.data.model.response.RegisterResponse
 import retrofit2.Response
 
 class EvaluarResultadoViewModel : ViewModel()  {
@@ -47,7 +47,7 @@ class EvaluarResultadoViewModel : ViewModel()  {
                 val response: Response<RegisterResponse> = repository.update(updateRequest)
                 if (response.isSuccessful && response.body() != null) {
                     val updateResponse = response.body()
-                    if (updateResponse!!.success) {
+                    if (updateResponse?.success == true) {
                         _updateSuccess.postValue(true)
                     } else {
                         _isError.postValue(true)
