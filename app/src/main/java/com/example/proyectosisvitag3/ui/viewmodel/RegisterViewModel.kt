@@ -44,6 +44,9 @@ class RegisterViewModel : ViewModel() {
     private val _userType = MutableLiveData("estudiante")
     val userType: LiveData<String> = _userType
 
+    private val _errorMessage = MutableLiveData<String?>()
+    val errorMessage: LiveData<String?> = _errorMessage
+
     // --- Functions to handle input changes ---
 
     fun onUserTypeChange(newType: String) {
@@ -92,6 +95,7 @@ class RegisterViewModel : ViewModel() {
 
     fun onRegisterSelected() {
         _isLoading.value = true
+        _errorMessage.value = null // Limpia errores previos
         viewModelScope.launch {
             try {val request = RegisterRequest(
                 firstName = _firstName.value ?: "",
@@ -106,13 +110,17 @@ class RegisterViewModel : ViewModel() {
                 if (response.isSuccessful && response.body()?.success == true) {
                     _registerSuccess.value = true
                 } else {
-                    // Manejar error de API o mostrar mensaje
+                    _errorMessage.value = response.body()?.message ?: "Error desconocido al registrarse"
                 }
             } catch (e: Exception) {
-                // error
+                _errorMessage.value = "Error de red o del servidor: ${e.localizedMessage}"
             } finally {
                 _isLoading.value = false
             }
         }
+    }
+
+    fun resetRegisterSuccessState() {
+        _registerSuccess.value = false
     }
 }

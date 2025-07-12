@@ -204,6 +204,15 @@ fun RegisterForm(
     Spacer(modifier = Modifier.height(16.dp))
 
     // Register Button
+    val errorMessage: String? by viewModel.errorMessage.observeAsState()
+
+    errorMessage?.let {
+        Text(
+            text = it,
+            color = Color.Red,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+    }
     Button(
         onClick = {
             coroutineScope.launch {
