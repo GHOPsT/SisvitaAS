@@ -1,4 +1,4 @@
-package com.example.proyectosisvitag3.ui.theme.data.model
+package com.example.proyectosisvitag3.data.model
 
 data class tbTest (
     val idTest: Int? = null,

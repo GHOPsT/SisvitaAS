@@ -77,6 +77,8 @@ class LoginViewModel : ViewModel() {
                     val loginResponse = response.body()
                     _loginResult.value = loginResponse
                     _loginSuccess.value = true // Indica que el login fue exitoso
+                    _loginResult.value = loginResponse
+
                     // El guardado del token se podría mover aquí si no depende del contexto directamente
                     // o manejarlo en la Activity/Fragment después de observar loginSuccess
                     // Ejemplo: loginResponse?.token?.let { saveToken(it) } // Necesitarías una forma de pasar el token
@@ -103,10 +105,8 @@ class LoginViewModel : ViewModel() {
     // Una opción es pasar el token a la UI y que la Activity/Fragment lo guarde,
     // o inyectar ApplicationContext en el ViewModel (con Hilt es más fácil).
     // Por ahora, lo comentaré para simplificar, pero necesitarás manejar esto.
-    /*
-    private fun saveToken(context: Context, token: String) {
+    /*private fun saveToken(context: Context, token: String) {
         val prefs = context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
-        prefs.edit().putString("jwt_token", token).apply()
-    }
-    */
+        prefs.edit().putString("jwt_token", token).apply()*/
+
 }

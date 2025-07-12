@@ -17,7 +17,12 @@ class ChatbotViewModel : ViewModel()  {
         viewModelScope.launch {
             try {
                 var token = getToken(context)
-                val response: Response<ChatResponse> = repository.sendMessage(token as Nothing?, ChatRequest(message))
+                if (token == null) {
+                    error.value = "Token no encontrado"
+                    return@launch
+                }
+
+                val response: Response<ChatResponse> = repository.sendMessage("Bearer $token", ChatRequest(message))
                 if (response.isSuccessful) {
                     chatReply.value = response.body()?.reply
                 } else {

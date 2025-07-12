@@ -8,7 +8,7 @@ import retrofit2.Response
 class ChatbotRepository {
     private val apiService = ApiClient.apiService
 
-    suspend fun sendMessage(token: Nothing?, chatRequest: ChatRequest): Response<ChatResponse> {
-        return apiService.chatbot("Bearer $token", chatRequest)
+    suspend fun sendMessage(token: String?, chatRequest: ChatRequest): Response<ChatResponse> {
+        return apiService.chatbot(token ?: "", chatRequest)
     }
 }

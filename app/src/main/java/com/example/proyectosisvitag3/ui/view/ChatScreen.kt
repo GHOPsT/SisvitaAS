@@ -21,19 +21,42 @@ import com.example.proyectosisvitag3.R
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.proyectosisvitag3.ui.theme.ProyectoSisvitaG3Theme
+import com.example.proyectosisvitag3.ui.theme.SoftMint
+import com.example.proyectosisvitag3.ui.viewmodel.ChatbotViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChatScreen(navController: NavHostController) {
+fun ChatScreen(
+    navController: NavHostController,
+    viewModel: ChatbotViewModel = viewModel()
+    ) {
     val messages = remember { mutableStateListOf<Message>() }
     var inputText by remember { mutableStateOf("") }
+    val botReply by viewModel.chatReply.observeAsState()
+    val error by viewModel.error.observeAsState()
 
+    LaunchedEffect(botReply) {
+        botReply?.let {
+            messages.add(Message(text = it, time = getCurrentTime(), isBot = true))
+            viewModel.chatReply.value = null // Limpiar para evitar duplicados
+        }
+    }
+
+    LaunchedEffect(error) {
+        error?.let {
+            messages.add(Message(text = "Error: $it", time = getCurrentTime(), isBot = true))
+            viewModel.error.value = null
+        }
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFFFFE6E6)) // fondo rosa claro
+            .background(SoftMint)
             .padding(8.dp)
     ) {
         LazyColumn(
@@ -63,16 +86,15 @@ fun ChatScreen(navController: NavHostController) {
                 )
             )
             Spacer(modifier = Modifier.width(4.dp))
+            val context = LocalContext.current
+
             Button(
                 onClick = {
                     if (inputText.isNotBlank()) {
                         messages.add(
                             Message(text = inputText, time = getCurrentTime(), isBot = false)
                         )
-                        // Simular respuesta del bot (para el mock)
-                        messages.add(
-                            Message(text = "Respuesta del bot", time = getCurrentTime(), isBot = true)
-                        )
+                        viewModel.sendMessage(context, inputText)
                         inputText = ""
                     }
                 },

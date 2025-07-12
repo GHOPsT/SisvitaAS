@@ -1,5 +1,6 @@
 package com.example.proyectosisvitag3.ui.view
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -9,6 +10,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -20,6 +22,7 @@ import kotlinx.coroutines.launch
 import com.example.proyectosisvitag3.R
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
+import com.example.proyectosisvitag3.data.model.response.LoginResponse
 import com.example.proyectosisvitag3.ui.components.CustomInputField
 import com.example.proyectosisvitag3.ui.viewmodel.LoginViewModel
 
@@ -80,7 +83,16 @@ fun Login(
     val isLoading: Boolean by viewModel.isLoading.observeAsState(initial = false)
     val coroutineScope = rememberCoroutineScope()
     val loginSuccess: Boolean by viewModel.loginSuccess.observeAsState(initial = false) // Observe loginSuccess
+    val context = LocalContext.current
+    val loginResult: LoginResponse? by viewModel.loginResult.observeAsState()
 
+
+    LaunchedEffect(loginResult) {
+        loginResult?.token?.let { token ->
+            val prefs = context.getSharedPreferences("auth_prefs", Context.MODE_PRIVATE)
+            prefs.edit().putString("jwt_token", token).apply()
+        }
+    }
     // Observa el estado de carga y navega si es exitoso
     LaunchedEffect(loginSuccess) { // Observe loginSuccess instead of isLoading
         if (loginSuccess) {
